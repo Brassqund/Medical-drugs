@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Anesthesiashort>
+
+  <ThingDef ParentName="DrugPillBase">
+    <defName>Anesthesiashort</defName>
+    <label>Short effect anesthesia</label>
+    <description>Anesthesia make the user unconscious for 4 hours and half. May cause temporary dizziness and nausea.</description>
+    <graphicData>
+      <texPath>Things/Item/Drug/Anesthesiashort</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <rotatable>false</rotatable>
+    <statBases>
+      <WorkToMake>400</WorkToMake>
+      <MarketValue>20</MarketValue>
+      <Mass>0.005</Mass>
+    </statBases>
+     <techLevel>Industrial</techLevel>
+    <ingestible>
+      <baseIngestTicks>90</baseIngestTicks>
+      <nurseable>true</nurseable>
+      <drugCategory>Medical</drugCategory>
+      <foodType>Processed, Fluid</foodType>
+      <baseIngestTicks>90</baseIngestTicks>
+      <ingestSound>Ingest_Inject</ingestSound>
+      <ingestHoldOffsetStanding>(0.18,0,0)</ingestHoldOffsetStanding>
+      <ingestCommandString>Inject {0}</ingestCommandString>
+      <ingestReportString>Injecting {0}.</ingestReportString>
+      <chairSearchRadius>0</chairSearchRadius>
+      <outcomeDoers>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>OnAnesthesiashort</hediffDef>
+          <severity>1.00</severity>
+          <toleranceChemical>Anesthesia</toleranceChemical>
+        </li>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>AnesthesiaTolerance</hediffDef>
+          <severity>0.045</severity>
+					<divideByBodySize>true</divideByBodySize>
+				</li>
+      </outcomeDoers>
+    </ingestible>
+    <recipeMaker>
+      <recipeUsers>
+        <li>DrugLab</li>
+      </recipeUsers>
+    </recipeMaker>
+    <costList>
+      <HerbalMedicine>1</HerbalMedicine>
+      <PainReleafPowder>1</PainReleafPowder>
+    </costList>
+    <comps>
+      <li Class="CompProperties_Drug">
+        <chemical>Anesthesia</chemical>
+        <addictiveness>0</addictiveness>
+        <minToleranceToAddict>1.0</minToleranceToAddict>
+        <existingAddictionSeverityOffset>0.01</existingAddictionSeverityOffset>
+        <needLevelOffset>1</needLevelOffset>
+        <isCombatEnhancingDrug>false</isCombatEnhancingDrug>
+        <listOrder>20</listOrder>
+        <overdoseSeverityOffset>
+          <min>0.30</min>
+          <max>0.45</max>
+        </overdoseSeverityOffset>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <HediffDef>
+    <defName>OnAnesthesiashort</defName>
+    <hediffClass>HediffWithComps</hediffClass>
+    <label>On Anesthesia</label>
+    <defaultLabelColor>(1,0,0.5)</defaultLabelColor>
+    <scenarioCanAdd>true</scenarioCanAdd>
+    <maxSeverity>1.0</maxSeverity>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-3.2</severityPerDay> <!--7h30 use, 4h30 and 3h   -->
+      </li>
+    </comps>
+      <stages>
+        <li>
+          <minSeverity>0.01</minSeverity>
+          <label>Anesthetic sick</label>
+          <vomitMtbDays>0.35</vomitMtbDays>
+          <painOffset>0.1</painOffset>
+          <capMods>
+            <li>
+              <capacity>Consciousness</capacity>
+              <setMax>0.60</setMax>
+            </li>
+            <li>
+              <capacity>Moving</capacity>
+              <offset>-0.20</offset>
+            </li>
+            <li>
+              <capacity>Manipulation</capacity>
+              <offset>-0.20</offset>
+            </li>
+          </capMods>
+         </li>
+        <li>
+          <minSeverity>0.4</minSeverity>
+          <label>Anesthetic</label>
+          <painOffset>-0.7</painOffset>
+          <capMods>
+            <li>
+              <capacity>Consciousness</capacity>
+              <setMax>0.1</setMax>
+            </li>
+          </capMods>
+         </li>
+      </stages>
+  </HediffDef>
+  
+  <ThoughtDef>
+    <defName>OnAnesthesiashort</defName>
+    <workerClass>ThoughtWorker_Hediff</workerClass>
+    <hediff>OnAnesthesiashort</hediff>
+    <validWhileDespawned>true</validWhileDespawned>
+    <stages>
+      <li>
+        <label>On anesthesia</label>
+        <description>...</description>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- Addiction -->
+
+  <ChemicalDef>
+    <defName>Anesthesia</defName>
+    <label>Anesthesia</label>
+    <addictionHediff>AnesthesiaAddiction</addictionHediff>
+    <toleranceHediff>AnesthesiaTolerance</toleranceHediff>
+  </ChemicalDef>
+
+  <NeedDef ParentName="DrugAddictionNeedBase">
+    <defName>Chemical_Anesthesia</defName>
+    <needClass>Need_Chemical</needClass>
+    <label>Anesthesia</label>
+    <description>Because of a developed Anesthesia dependence, this person needs to regularly consume the drug to avoid withdrawal symptoms.</description>
+    <listPriority>25</listPriority>
+  </NeedDef>
+  
+  <HediffDef ParentName="DrugToleranceBase">
+    <defName>AnesthesiaTolerance</defName>
+    <label>Anesthesia tolerance</label>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-0.015</severityPerDay>
+      </li>
+      <li Class="HediffCompProperties_DrugEffectFactor">
+        <chemical>Anesthesia</chemical>
+      </li>
+    </comps>
+	</HediffDef>
+
+  <HediffDef ParentName="AddictionBase">
+    <defName>AnesthesiaAddiction</defName>
+    <hediffClass>Hediff_Addiction</hediffClass>
+    <label>Anesthesia dependence</label>
+    <causesNeed>Chemical_Anesthesia</causesNeed>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-0.04</severityPerDay>
+      </li>
+    </comps>
+    <stages>
+      <li>
+      </li>
+      <li>
+        <label>withdrawal</label>
+        <restFallFactor>1.3</restFallFactor>
+        <socialFightChanceFactor>2.1</socialFightChanceFactor>
+        <capMods>
+           <li>
+            <capacity>Consciousness</capacity>
+            <offset>-0.25</offset>
+          </li>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>-0.40</offset>
+          </li>
+          <li>
+            <capacity>Manipulation</capacity>
+            <offset>-0.20</offset>
+          </li>
+          <li>
+            <capacity>Metabolism</capacity>
+            <offset>0.20</offset>
+          </li>
+        </capMods>
+				<mentalStateGivers>
+					<li>
+						<mentalState>BingingDrugMajor</mentalState>
+						<mtbDays>30</mtbDays>
+					</li>
+				</mentalStateGivers>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <ThoughtDef>
+    <defName>AnesthesiaWithdrawal</defName>
+    <workerClass>ThoughtWorker_Hediff</workerClass>
+    <hediff>AnesthesiaAddiction</hediff>
+    <validWhileDespawned>true</validWhileDespawned>
+    <stages>
+      <li>
+        <visible>false</visible>
+      </li>
+      <li>
+        <label>Anesthesia withdrawal</label>
+        <description>I can't sleep without an other shot!</description>
+        <baseMoodEffect>-30</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+</Anesthesiashort>

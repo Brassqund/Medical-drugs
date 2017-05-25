@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ModMetaData>
+	<name>MedicalDrugs</name>
+	<author>Brassqund</author>
+	<targetVersion>0.16.1393</targetVersion>
+	<description>Adds drugs mostly for medical use:
+- Adrenaline is a drug that increase the fight-or-flight response, useful to be able to move even with heavy wounds or during desesperate situations. Its effects are short and an overdose can cause death. Can also produce a dependency if used too often
+- Morphine is a drug used to reduce extreme pain. Extremely powerful, it also make an user unable to do complex actions and abusing of it can cause heavy dependence or an overdose 
+- And even more!</description>
+</ModMetaData>

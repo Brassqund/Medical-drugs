@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Psychicresistance>
+
+  <ThingDef ParentName="DrugPillBase">
+    <defName>Psychicresistance</defName>
+    <label>Psychic resistance drug</label>
+    <description>This drug reduce the psychic sensibility of the user, but doing so also slightly reduce perception, social skills and consciousness. The duration of this drug is two days.</description>
+    <graphicData>
+      <texPath>Things/Item/Drug/Psychicresistance</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <rotatable>false</rotatable>
+    <statBases>
+      <MarketValue>45</MarketValue>
+      <Mass>0.005</Mass>
+    </statBases>
+    <techLevel>Spacer</techLevel>
+    <ingestible>
+      <nurseable>true</nurseable>
+      <drugCategory>Medical</drugCategory>
+      <outcomeDoers>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>PsychicresistanceHigh</hediffDef>
+          <severity>1.0</severity>
+          <toleranceChemical>Psychicresistance</toleranceChemical>
+        </li>        
+        
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>PsychicresistanceTolerance</hediffDef>
+          <severity>0.005</severity>
+					<divideByBodySize>true</divideByBodySize>
+				</li>
+      </outcomeDoers>
+    </ingestible>
+    <comps>
+      <li Class="CompProperties_Drug">
+        <chemical>Psychicresistance</chemical>
+        <addictiveness>0</addictiveness>
+        <minToleranceToAddict>1.00</minToleranceToAddict>
+        <existingAddictionSeverityOffset>0.30</existingAddictionSeverityOffset>
+        <needLevelOffset>1</needLevelOffset>
+        <listOrder>20</listOrder>
+        <overdoseSeverityOffset>
+          <min>0.48</min>
+          <max>0.49</max>
+        </overdoseSeverityOffset>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <HediffDef>
+    <defName>PsychicresistanceHigh</defName>
+    <hediffClass>HediffWithComps</hediffClass>
+    <label>Psychic resistance drug</label>
+    <defaultLabelColor>(1,0,0.5)</defaultLabelColor>
+    <scenarioCanAdd>true</scenarioCanAdd>
+    <maxSeverity>1.0</maxSeverity>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-0.5</severityPerDay>  <!--  -->                  
+      </li>
+    </comps>
+      <stages>
+         <li>
+      <statOffsets>
+        <PsychicSensitivity>-0.50</PsychicSensitivity>
+      </statOffsets>
+      <capMods>
+          <li>
+            <capacity>Sight</capacity>
+            <offset>-0.10</offset>
+          </li>
+          <li>
+            <capacity>Hearing</capacity>
+            <offset>-0.10</offset>
+          </li>
+          <li>
+            <capacity>Talking</capacity>
+            <offset>-0.10</offset>
+          </li>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>-0.10</offset>
+          </li>
+        </capMods>
+         </li>
+      </stages>
+  </HediffDef>
+
+
+  <!-- Addiction -->
+
+  <ChemicalDef>
+    <defName>Psychicresistance</defName>
+    <label>Psychicresistance</label>
+    <addictionHediff>PsychicresistanceAddiction</addictionHediff>
+    <toleranceHediff>PsychicresistanceTolerance</toleranceHediff>
+  </ChemicalDef>
+
+  <NeedDef ParentName="DrugAddictionNeedBase">
+    <defName>Chemical_Psychicresistance</defName>
+    <needClass>Need_Chemical</needClass>
+    <label>Psychicresistance</label>
+    <description>Because of a developed psychic resistance drug dependence, this person needs to regularly consume the drug to avoid withdrawal symptoms.</description>
+    <listPriority>25</listPriority>
+  </NeedDef>
+  
+  <HediffDef ParentName="DrugToleranceBase">
+    <defName>PsychicresistanceTolerance</defName>
+    <label>Psychicresistance tolerance</label>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-0.015</severityPerDay>
+      </li>
+      <li Class="HediffCompProperties_DrugEffectFactor">
+        <chemical>Psychicresistance</chemical>
+      </li>
+    </comps>
+	</HediffDef>
+
+  <HediffDef ParentName="AddictionBase">
+    <defName>PsychicresistanceAddiction</defName>
+    <hediffClass>Hediff_Addiction</hediffClass>
+    <label>Psychicresistance dependence</label>
+    <causesNeed>Chemical_Psychicresistance</causesNeed>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-0.09</severityPerDay>
+      </li>
+    </comps>
+    <stages>
+      <li>
+      </li>
+      <li>
+        <label>withdrawal</label>
+          <painOffset>0.01</painOffset>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <ThoughtDef>
+    <defName>PsychicresistanceWithdrawal</defName>
+    <workerClass>ThoughtWorker_Hediff</workerClass>
+    <hediff>PsychicresistanceAddiction</hediff>
+    <validWhileDespawned>true</validWhileDespawned>
+    <stages>
+      <li>
+        <visible>false</visible>
+      </li>
+      <li>
+        <label>Psychic resistance withdrawal</label>
+        <description>I really wish I could had some of it again.</description>
+        <baseMoodEffect>-1</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+</Psychicresistance>

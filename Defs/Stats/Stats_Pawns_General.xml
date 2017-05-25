@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<StatDefs>
+  <StatDef>
+    <defName>SleepingFactor</defName>
+    <label>sleeping factor</label>
+    <description>How well you rest when sleeping.</description>
+    <category>BasicsPawn</category>
+    <defaultBaseValue>1</defaultBaseValue>
+    <minValue>0.01</minValue>
+    <maxValue>10.00</maxValue>
+    <toStringStyle>PercentZero</toStringStyle>
+    <showOnAnimals>false</showOnAnimals>
+    <displayPriorityInCategory>80</displayPriorityInCategory>
+  </StatDef>
+  
+</StatDefs>

@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!--=============== Medicine ====================-->
+    <ThingDef ParentName="ResourceBase">
+    <defName>ConoroFlower</defName>
+    <label>Conoro flowers</label>
+    <description>A pack of conoro flowers. Can be crushed into powder and used to reducing minor pain or rafined into morphine.</description>
+    <thingClass>Medicine</thingClass>
+    <graphicData>
+      <texPath>Things/Item/Resource/ConoroFlower</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>Standard_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <MarketValue>1.5</MarketValue>
+      <Mass>0.35</Mass>
+      <Flammability>1.0</Flammability>
+      <DeteriorationRate>10</DeteriorationRate>
+    </statBases>
+    <thingCategories>
+      <li>Medicine</li>
+    </thingCategories>
+    <tickerType>Rare</tickerType>
+    <comps>
+      <li Class="CompProperties_Rottable">
+        <daysToRotStart>150</daysToRotStart>
+				<rotDestroys>true</rotDestroys>
+			</li>
+    </comps>
+  </ThingDef>
+ 
+  
+  
+  <ThingDef ParentName="ResourceBase">
+    <defName>AnoatoHerb</defName>
+    <label>Anoato herbs</label>
+    <description>A pack of Anoato herbs. This plant was used for a long time by tribes of Rimworld to increase their sudation and so, their resistance of heat during harsh summers..</description>
+    <thingClass>Medicine</thingClass>
+    <graphicData>
+      <texPath>Things/Item/Resource/AnoatoHerb</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>Standard_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <MarketValue>1.5</MarketValue>
+      <Mass>0.35</Mass>
+      <Flammability>1.0</Flammability>
+      <DeteriorationRate>10</DeteriorationRate>
+    </statBases>
+    <thingCategories>
+      <li>Medicine</li>
+    </thingCategories>
+    <tickerType>Rare</tickerType>
+    <comps>
+      <li Class="CompProperties_Rottable">
+        <daysToRotStart>150</daysToRotStart>
+				<rotDestroys>true</rotDestroys>
+			</li>
+    </comps>
+  </ThingDef>
+  
+    <ThingDef ParentName="ResourceBase">
+    <defName>IceRose</defName>
+    <label>Ice roses</label>
+    <description>A pack of ice roses. Can be crushed and ingested to increase heat production in the body. Its name come from its color and is not actually made of ice..</description>
+    <thingClass>Medicine</thingClass>
+    <graphicData>
+      <texPath>Things/Item/Resource/IceRose</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>Standard_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <MarketValue>1.5</MarketValue>
+      <Mass>0.35</Mass>
+      <Flammability>1.0</Flammability>
+      <DeteriorationRate>10</DeteriorationRate>
+    </statBases>
+    <thingCategories>
+      <li>Medicine</li>
+    </thingCategories>
+    <tickerType>Rare</tickerType>
+    <comps>
+      <li Class="CompProperties_Rottable">
+        <daysToRotStart>150</daysToRotStart>
+				<rotDestroys>true</rotDestroys>
+			</li>
+    </comps>
+  </ThingDef>
+  
+</Defs>

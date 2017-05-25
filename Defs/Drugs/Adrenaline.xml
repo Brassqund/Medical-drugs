@@ -1,0 +1,241 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Adrenaline>
+
+  <ThingDef ParentName="DrugPillBase">
+    <defName>Adrenaline</defName>
+    <label>Adrenaline</label>
+    <description>Adrenaline is a drug that increase the fight-or-flight response, useful to be able to move even with heavy wounds or during desesperate situations. Its effects are short and an overdose can cause death. Can also develop a dependency if used too often.</description>
+    <graphicData>
+      <texPath>Things/Item/Drug/Adrenaline</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <rotatable>false</rotatable>
+    <statBases>
+      <WorkToMake>1025</WorkToMake>
+      <MarketValue>32</MarketValue>
+      <Mass>0.005</Mass>
+    </statBases>
+     <techLevel>Industrial</techLevel>
+    <ingestible>
+      <baseIngestTicks>90</baseIngestTicks>
+      <nurseable>true</nurseable>
+      <drugCategory>Medical</drugCategory>
+      <foodType>Processed, Fluid</foodType>
+      <baseIngestTicks>90</baseIngestTicks>
+      <ingestSound>Ingest_Inject</ingestSound>
+      <ingestHoldOffsetStanding>(0.18,0,0)</ingestHoldOffsetStanding>
+      <ingestCommandString>Inject {0}</ingestCommandString>
+      <ingestReportString>Injecting {0}.</ingestReportString>
+      <chairSearchRadius>0</chairSearchRadius>
+      <outcomeDoers>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>AdrenalineHigh</hediffDef>
+          <severity>0.75</severity>
+          <toleranceChemical>Adrenaline</toleranceChemical>
+        </li>
+        <li Class="IngestionOutcomeDoer_OffsetNeed">
+          <need>Rest</need>
+          <offset>0.5</offset>
+        </li>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>AdrenalineTolerance</hediffDef>
+          <severity>0.045</severity>
+					<divideByBodySize>true</divideByBodySize>
+				</li>
+      </outcomeDoers>
+    </ingestible>
+    <recipeMaker>
+      <recipeUsers>
+        <li>DrugLab</li>
+      </recipeUsers>
+    </recipeMaker>
+    <costList>
+      <GrizzlyBear_Meat>25</GrizzlyBear_Meat>
+    </costList>
+    <comps>
+      <li Class="CompProperties_Drug">
+        <chemical>Adrenaline</chemical>
+        <addictiveness>0.18</addictiveness>
+        <minToleranceToAddict>0.1</minToleranceToAddict>
+        <existingAddictionSeverityOffset>0.20</existingAddictionSeverityOffset>
+        <needLevelOffset>1</needLevelOffset>
+        <isCombatEnhancingDrug>true</isCombatEnhancingDrug>
+        <listOrder>20</listOrder>
+        <overdoseSeverityOffset>
+          <min>0.30</min>
+          <max>0.45</max>
+        </overdoseSeverityOffset>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <HediffDef>
+    <defName>AdrenalineHigh</defName>
+    <hediffClass>HediffWithComps</hediffClass>
+    <label>high on Adrenaline</label>
+    <defaultLabelColor>(1,0,0.5)</defaultLabelColor>
+    <scenarioCanAdd>true</scenarioCanAdd>
+    <maxSeverity>1.0</maxSeverity>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-6.5</severityPerDay>
+      </li>
+    </comps>
+      <stages>
+        <li>
+          <painOffset>-0.3</painOffset>
+          <capMods>
+            <li>
+              <capacity>Consciousness</capacity>
+              <offset>0.3</offset>
+            </li>
+			<li>
+			  <capacity>Manipulation</capacity>
+			  <offset>-0.1</offset>
+           </li>
+		   <li>
+		      <capacity>Sight</capacity>
+			  <offset>0.10</offset>
+		   </li>
+           <li>
+              <capacity>Metabolism</capacity>
+              <offset>0.10</offset>                        
+           </li>
+           <li>
+              <capacity>BloodPumping</capacity>
+              <offset>0.25</offset>
+          </li>
+          <li>
+              <capacity>Breathing</capacity>
+              <offset>0.15</offset>
+          </li>
+           <li>
+              <capacity>Moving</capacity>
+              <offset>0.35</offset>
+            </li>
+          </capMods>
+          <hediffGivers>
+            <li Class="HediffGiver_Random">
+              <hediff>HeartAttack</hediff>
+              <mtbDays>120</mtbDays>
+            </li>
+			<li Class="HediffGiver_RandomDrugEffect">
+				<hediff>Carcinoma</hediff>
+				<baseMtbDays>180</baseMtbDays>
+				<minSeverity>0.50</minSeverity>
+				<partsToAffect>
+					<li>Heart</li>
+				</partsToAffect>
+				<countToAffect>1</countToAffect>
+			</li>
+          </hediffGivers>
+        </li>
+      </stages>
+  </HediffDef>
+  
+  <ThoughtDef>
+    <defName>AdrenalineHigh</defName>
+    <workerClass>ThoughtWorker_Hediff</workerClass>
+    <hediff>AdrenalineHigh</hediff>
+    <validWhileDespawned>true</validWhileDespawned>
+    <stages>
+      <li>
+        <label>high on Adrenaline</label>
+        <description>My body is on fire!</description>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- Addiction -->
+
+  <ChemicalDef>
+    <defName>Adrenaline</defName>
+    <label>Adrenaline</label>
+    <addictionHediff>AdrenalineAddiction</addictionHediff>
+    <toleranceHediff>AdrenalineTolerance</toleranceHediff>
+  </ChemicalDef>
+
+  <NeedDef ParentName="DrugAddictionNeedBase">
+    <defName>Chemical_Adrenaline</defName>
+    <needClass>Need_Chemical</needClass>
+    <label>Adrenaline</label>
+    <description>Because of a developed adrenaline dependence, this person needs to regularly consume the drug to avoid withdrawal symptoms.</description>
+    <listPriority>25</listPriority>
+  </NeedDef>
+  
+  <HediffDef ParentName="DrugToleranceBase">
+    <defName>AdrenalineTolerance</defName>
+    <label>Adrenaline tolerance</label>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-0.015</severityPerDay>
+      </li>
+      <li Class="HediffCompProperties_DrugEffectFactor">
+        <chemical>Adrenaline</chemical>
+      </li>
+    </comps>
+	</HediffDef>
+
+  <HediffDef ParentName="AddictionBase">
+    <defName>AdrenalineAddiction</defName>
+    <hediffClass>Hediff_Addiction</hediffClass>
+    <label>Adrenaline dependence</label>
+    <causesNeed>Chemical_Adrenaline</causesNeed>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-0.04</severityPerDay>
+      </li>
+    </comps>
+    <stages>
+      <li>
+      </li>
+      <li>
+        <label>withdrawal</label>
+        <restFallFactor>1.3</restFallFactor>
+        <socialFightChanceFactor>2.1</socialFightChanceFactor>
+        <capMods>
+           <li>
+            <capacity>Consciousness</capacity>
+            <offset>-0.25</offset>
+          </li>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>-0.40</offset>
+          </li>
+          <li>
+            <capacity>Manipulation</capacity>
+            <offset>-0.20</offset>
+          </li>
+          <li>
+            <capacity>Metabolism</capacity>
+            <offset>0.20</offset>
+          </li>
+        </capMods>
+				<mentalStateGivers>
+					<li>
+						<mentalState>BingingDrugMajor</mentalState>
+						<mtbDays>30</mtbDays>
+					</li>
+				</mentalStateGivers>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <ThoughtDef>
+    <defName>AdrenalineWithdrawal</defName>
+    <workerClass>ThoughtWorker_Hediff</workerClass>
+    <hediff>AdrenalineAddiction</hediff>
+    <validWhileDespawned>true</validWhileDespawned>
+    <stages>
+      <li>
+        <visible>false</visible>
+      </li>
+      <li>
+        <label>Adrenaline withdrawal</label>
+        <description>I feel so tired. I need an other shoot to feel better.</description>
+        <baseMoodEffect>-30</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+</Adrenaline>
